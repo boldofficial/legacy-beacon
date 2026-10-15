@@ -51,13 +51,34 @@ const path = Astro.url.pathname;
   </div>
 </header>
 <script is:inline>
-  document.querySelectorAll(".menu-toggle").forEach((button) =>
+  document.querySelectorAll(".menu-toggle").forEach((button) => {
+    const nav = document.getElementById("primary-nav");
+
+    const setMenuState = (open) => {
+      button.setAttribute("aria-expanded", String(open));
+      nav?.classList.toggle("is-open", open);
+    };
+
     button.addEventListener("click", () => {
       const open = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!open));
-      document
-        .getElementById("primary-nav")
-        ?.classList.toggle("is-open", !open);
-    }),
-  );
+      setMenuState(!open);
+    });
+
+    nav?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMenuState(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+        setMenuState(false);
+        button.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) {
+        setMenuState(false);
+      }
+    });
+  });
 </script>

@@ -1,0 +1,48 @@
+<button
+  class="scroll-to-top"
+  type="button"
+  aria-label="Scroll back to the top"
+  aria-hidden="true"
+  tabindex="-1"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m6 14 6-6 6 6" />
+  </svg>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>(".scroll-to-top");
+
+  if (button) {
+    let ticking = false;
+
+    const updateVisibility = () => {
+      const visible = window.scrollY > 520;
+      button.classList.toggle("is-visible", visible);
+      button.setAttribute("aria-hidden", String(!visible));
+      button.tabIndex = visible ? 0 : -1;
+      ticking = false;
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateVisibility);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    window.addEventListener("pageshow", updateVisibility);
+    updateVisibility();
+
+    button.addEventListener("click", () => {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
+</script>

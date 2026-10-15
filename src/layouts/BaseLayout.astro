@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import CTASection from "../components/CTASection.astro";
 import Footer from "../components/Footer.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
 import { site } from "../data/site";
 const {
   title,
@@ -81,6 +82,7 @@ const organizationSchema = {
     </main>
     <CTASection />
     <Footer />
+    <ScrollToTop />
     <script is:inline>
       document
         .querySelectorAll("[data-analytics]")

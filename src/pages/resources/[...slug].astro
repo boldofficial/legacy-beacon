@@ -55,11 +55,25 @@ const schema = {
         })} · By <strong>{entry.data.author}</strong>
       </p>
       <Content />
+
+      <div class="article-cta-box">
+        <p class="eyebrow">Need help applying this to your situation?</p>
+        <h2>Let’s talk through your priorities.</h2>
+        <p>
+          Use this information as a starting point, then speak with someone about
+          what matters most for your family, income protection, and long-term goals.
+        </p>
+        <div class="article-cta-actions">
+          <a class="btn btn-primary" href="/contact">Book a consultation</a>
+          <a class="resource-cta-link" href="/resources">Browse more articles</a>
+        </div>
+      </div>
     </article>
     <aside class="article-aside" aria-label="Article information">
       <p>Published</p>
       <strong>{entry.data.publishDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</strong>
       <a href="/resources">More from the journal <span aria-hidden="true">→</span></a>
+      <a href="/contact">Talk with Legacy Beacon <span aria-hidden="true">→</span></a>
     </aside>
   </div>
 </BaseLayout>
