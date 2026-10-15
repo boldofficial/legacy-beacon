@@ -1,91 +1,173 @@
 media:
-  input: public/images
-  output: /images
+  - name: site_images
+    label: Site images
+    input: public/images
+    output: /images
+    categories: [image]
+    extensions: [avif, gif, jpeg, jpg, png, svg, webp]
+    rename: safe
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "content: add {name}"
+      update: "content: update {name}"
+      delete: "content: remove {name}"
+      rename: "content: rename {oldFilename} to {newFilename}"
+
 content:
   - name: resources
-    label: Resources
+    label: Blog posts
     type: collection
     path: src/content/resources
-    filename: "{primary}.md"
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
     view:
-      fields: [title, status, publishDate, category]
       primary: title
-      sort: [publishDate, title]
+      fields: [title, category, author, publishDate, status]
+      search: [title, category, author, excerpt]
+      sort: [publishDate, title, category, status]
+      default:
+        sort: publishDate
+        order: desc
     fields:
-      - { name: title, label: Title, type: string, required: true }
-      - {
-          name: author,
-          label: Author,
-          type: string,
-          default: Legacy Beacon,
-          required: true,
-        }
-      - { name: publishDate, label: Publish date, type: date, required: true }
-      - { name: category, label: Category, type: string, required: true }
-      - { name: excerpt, label: Short summary, type: text, required: true }
-      - { name: featuredImage, label: Featured image, type: image }
-      - { name: seoTitle, label: SEO title, type: string }
-      - {
-          name: metaDescription,
-          label: Meta description,
-          type: text,
-          required: true,
-        }
-      - { name: socialImage, label: Social sharing image, type: image }
-      - name: status
-        label: Publication status
-        type: select
-        options:
-          values: [draft, published]
-        default: draft
+      - name: title
+        label: Title
+        type: string
         required: true
-      - { name: body, label: Article content, type: rich-text, required: true }
-  - name: settings
-    label: Global settings
+        options:
+          maxlength: 120
+      - name: author
+        label: Author
+        type: string
+        required: true
+      - name: publishDate
+        label: Publication date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: category
+        label: Category
+        type: string
+        required: true
+      - name: excerpt
+        label: Card description
+        type: text
+        required: true
+        description: Short summary displayed on the Resources page.
+        options:
+          maxlength: 240
+      - name: featuredImage
+        label: Featured image
+        type: image
+        options:
+          media: site_images
+          path: resources
+          extensions: [avif, jpeg, jpg, png, webp]
+          rename: safe
+      - name: seoTitle
+        label: SEO title
+        type: string
+        description: Optional search result title. Leave blank to use the post title.
+        options:
+          maxlength: 70
+      - name: metaDescription
+        label: Meta description
+        type: text
+        required: true
+        options:
+          maxlength: 170
+      - name: socialImage
+        label: Social sharing image
+        type: image
+        options:
+          media: site_images
+          path: resources
+          extensions: [avif, jpeg, jpg, png, webp]
+          rename: safe
+      - name: status
+        label: Status
+        type: select
+        required: true
+        options:
+          values:
+            - name: draft
+              label: Draft
+            - name: published
+              label: Published
+      - name: body
+        label: Article content
+        type: rich-text
+        required: true
+        options:
+          format: html
+          media: site_images
+          path: resources
+          extensions: [avif, jpeg, jpg, png, webp]
+          rename: safe
+          switcher: true
+
+  - name: site_settings
+    label: Site and contact details
     type: file
     path: src/data/site.json
     format: json
     fields:
-      - { name: name, label: Company name, type: string, required: true }
-      - {
-          name: legalName,
-          label: Legal company name,
-          type: string,
-          required: true,
-        }
-      - { name: email, label: Official email, type: string, required: true }
-      - {
-          name: phone,
-          label: Display phone number,
-          type: string,
-          required: true,
-        }
-      - {
-          name: phoneHref,
-          label: Phone number for links,
-          type: string,
-          required: true,
-        }
-      - {
-          name: bookingUrl,
-          label: Google Calendar booking URL,
-          type: string,
-          required: true,
-        }
-      - {
-          name: description,
-          label: Company description,
-          type: text,
-          required: true,
-        }
+      - name: name
+        label: Brand name
+        type: string
+        required: true
+      - name: legalName
+        label: Legal business name
+        type: string
+        required: true
+      - name: email
+        label: Contact email
+        type: string
+        required: true
+      - name: phone
+        label: Display phone number
+        type: string
+        required: true
+      - name: phoneHref
+        label: Telephone link
+        type: string
+        required: true
+        description: Include the country code, for example +12168011164.
+      - name: bookingUrl
+        label: Booking URL
+        type: string
+        required: true
+        description: Use the Google Calendar booking link when it is available.
+      - name: description
+        label: Business description
+        type: text
+        required: true
+        options:
+          maxlength: 300
       - name: social
         label: Social links
         type: object
         fields:
-          - { name: facebook, label: Facebook URL, type: string }
-          - { name: instagram, label: Instagram URL, type: string }
-          - { name: linkedin, label: LinkedIn URL, type: string }
-          - { name: youtube, label: YouTube URL, type: string }
+          - name: facebook
+            label: Facebook
+            type: string
+          - name: instagram
+            label: Instagram
+            type: string
+          - name: linkedin
+            label: LinkedIn
+            type: string
+          - name: youtube
+            label: YouTube
+            type: string
+
   - name: services
     label: Services
     type: file
@@ -93,24 +175,40 @@ content:
     format: json
     list: true
     fields:
-      - {
-          name: slug,
-          label: URL slug,
-          type: string,
-          required: true,
-          readonly: true,
-        }
-      - { name: title, label: Page title, type: string, required: true }
-      - { name: shortTitle, label: Card title, type: string, required: true }
-      - { name: summary, label: Short description, type: text, required: true }
-      - { name: introduction, label: Introduction, type: text, required: true }
-      - { name: uses, label: Potential uses, type: string, list: true }
-      - {
-          name: considerations,
-          label: Things to consider,
-          type: string,
-          list: true,
-        }
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: Use lowercase letters, numbers, and hyphens only.
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: shortTitle
+        label: Short title
+        type: string
+        required: true
+      - name: summary
+        label: Card summary
+        type: text
+        required: true
+        options:
+          maxlength: 240
+      - name: introduction
+        label: Introduction
+        type: text
+        required: true
+      - name: uses
+        label: Common uses
+        type: string
+        list: true
+      - name: considerations
+        label: Important considerations
+        type: string
+        list: true
+
   - name: faqs
     label: Frequently asked questions
     type: file
@@ -118,5 +216,11 @@ content:
     format: json
     list: true
     fields:
-      - { name: question, label: Question, type: string, required: true }
-      - { name: answer, label: Answer, type: text, required: true }
+      - name: question
+        label: Question
+        type: string
+        required: true
+      - name: answer
+        label: Answer
+        type: text
+        required: true
