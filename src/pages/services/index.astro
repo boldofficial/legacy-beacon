@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { services } from "../../data/services";
+
+const serviceCards = [
+  { ...services[0], summary: "Affordable cover for your income, home, and family during the years that matter most.", icon: "<path d='M12 21s7-4.35 7-10a7 7 0 0 0-14 0c0 5.65 7 10 7 10Z'/><path d='m9 11 2 2 4-5'/>" },
+  { ...services[1], summary: "Lifetime protection with guaranteed features and cash value for future needs.", icon: "<circle cx='12' cy='7' r='4'/><path d='M5.5 21a6.5 6.5 0 0 1 13 0'/>" },
+  { ...services[2], shortTitle: "Index Universal Life (IUL)", summary: "Flexible cover plus index-linked growth potential for tax-advantaged wealth building.", icon: "<path d='M4 10h16M8 14l4-4 4 4'/>" },
+  { ...services[3], summary: "Keep your home in the family even when life takes an unexpected turn.", icon: "<path d='m3 11 9-7 9 7'/><path d='M5 10v10h14V10M9 20v-6h6v6'/>" },
+  { ...services[4], summary: "Protect principal and create stable, retirement-ready income you can’t outlive.", icon: "<rect x='5' y='9' width='14' height='11' rx='2'/><path d='M8 9V7a4 4 0 0 1 8 0v2'/>" },
+  { ...services[5], summary: "Compassionate cover that relieves loved ones and preserves dignity.", icon: "<path d='M12 3v18M6 9h12M7 15h10'/>" },
+];
+
+const reasons = [
+  { title: "Family-Centered Mission", text: "We believe no family should be left behind in the journey toward financial freedom.", icon: "☆" },
+  { title: "Education First", text: "We simplify complex financial topics, helping you understand every option before making a decision.", icon: "♙" },
+  { title: "Trusted Advisors", text: "Our team brings years of experience and genuine care to every conversation.", icon: "♡" },
+  { title: "Tailored Strategies", text: "Every plan is designed around your goals — not generic templates.", icon: "◇" },
+  { title: "Long-Term Partnership", text: "We walk with you from your first consultation to your final milestone — and beyond.", icon: "∞" },
+];
+---
+
+<BaseLayout
+  title="Services"
+  description="Explore Legacy Beacon services for life insurance, mortgage protection, annuities, final expenses, and legacy planning."
+>
+  <section class="services-hero">
+    <div class="services-hero-copy">
+      <div>
+        <h1>Empowering Families.<br />Strengthening Futures.<br />Protecting Legacies.</h1>
+        <p>Discover our personalized financial solutions designed to help you build wealth, safeguard what matters, and create a legacy that lasts for generations.</p>
+        <a class="services-hero-button" href="#services-list">Explore Our Services</a>
+      </div>
+    </div>
+    <div class="services-hero-image">
+      <img src="/images/legacy-beacon-family.webp" alt="A family enjoying time together at home" width="1600" height="900" />
+    </div>
+  </section>
+
+  <section class="services-approach" aria-labelledby="approach-title">
+    <div class="services-approach-copy">
+      <div>
+        <h2 id="approach-title">Our Approach<br />to Financial<br />Freedom</h2>
+        <p>At <strong>Legacy Beacon LLC</strong>, we believe that financial success isn’t just about numbers — it’s about <em>people, purpose, and peace of mind.</em></p>
+        <p>That’s why our approach combines education, strategy, and mentorship to help families and entrepreneurs make smart, confident decisions that stand the test of time.</p>
+        <p>We take the time to understand your goals, values, and challenges, then design a personalized plan that aligns with your vision for financial independence and generational wealth.</p>
+      </div>
+    </div>
+    <div class="services-approach-image" aria-hidden="true"></div>
+  </section>
+
+  <section class="services-catalog" id="services-list" aria-labelledby="services-list-title">
+    <div class="container">
+      <header class="services-catalog-heading">
+        <h2 id="services-list-title">How We Serve Your Family</h2>
+        <p>Building Financial Freedom Through Smart, Simple, and Sustainable Strategies</p>
+      </header>
+      <div class="services-catalog-grid">
+        {serviceCards.map((service) => (
+          <a class="services-catalog-card" href={`/services/${service.slug}`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true" set:html={service.icon} />
+            <h3>{service.shortTitle}</h3>
+            <p>{service.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="services-why" aria-labelledby="why-title">
+    <div class="container services-why-grid">
+      <div class="services-why-copy">
+        <h2 id="why-title">Why Choose Legacy Beacon</h2>
+        <p class="services-why-lead">A partner who puts people before profit, guiding every family with care, clarity, and purpose.</p>
+        <div class="services-reasons">
+          {reasons.map((reason) => (
+            <article>
+              <span aria-hidden="true">{reason.icon}</span>
+              <div><h3>{reason.title}</h3><p>{reason.text}</p></div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <figure class="services-why-image">
+        <img src="/images/about-family.webp" alt="A grandmother and child working together" width="800" height="800" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+</BaseLayout>

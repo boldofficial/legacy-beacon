@@ -1,16 +1,215 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQList from "../components/FAQList.astro";
+import { services } from "../data/services";
+import { faqs } from "../data/faqs";
+import { getCollection } from "astro:content";
+const resources = (
+  await getCollection("resources", ({ data }) => data.status === "published")
+)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+const homeServices = [
+  {
+    ...services[0],
+    summary:
+      "Affordable cover for your income, home, and family during the years that matter most.",
+    icon: "<path d='M12 21s7-4.35 7-10a7 7 0 0 0-14 0c0 5.65 7 10 7 10Z'/><path d='m9 11 2 2 4-5'/>",
+  },
+  {
+    ...services[1],
+    summary:
+      "Lifetime protection with guaranteed features and cash value for future needs.",
+    icon: "<circle cx='12' cy='7' r='4'/><path d='M5.5 21a6.5 6.5 0 0 1 13 0'/>",
+  },
+  {
+    ...services[2],
+    summary:
+      "Flexible cover plus index-linked growth potential for tax-advantaged wealth building.",
+    icon: "<path d='M4 10h16M8 14l4-4 4 4'/>",
+  },
+  {
+    ...services[3],
+    summary:
+      "Keep your home in the family even when life takes an unexpected turn.",
+    icon: "<path d='m3 11 9-7 9 7'/><path d='M5 10v10h14V10M9 20v-6h6v6'/>",
+  },
+  {
+    ...services[4],
+    summary:
+      "Protect principal and create stable, retirement-ready income you can’t outlive.",
+    icon: "<rect x='5' y='9' width='14' height='11' rx='2'/><path d='M8 9V7a4 4 0 0 1 8 0v2'/>",
+  },
+  {
+    ...services[5],
+    summary:
+      "Compassionate cover that relieves loved ones and preserves dignity.",
+    icon: "<path d='M12 3v18M6 9h12M7 15h10'/>",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Legacy Beacon"
+  description="Helping families protect what matters, build financial confidence, and create legacies that last."
+>
+  <section class="hero hero-live-match">
+    <div class="container hero-live-inner">
+      <h1>
+        Helping all families.
+        <br />
+        Building legacies.
+        <br />
+        Changing destinies.
+      </h1>
+      <p>
+        Empowering families to achieve financial freedom, protect what matters,
+        and create legacies that outlive them.
+      </p>
+      <a class="btn btn-primary" href="/services">
+        Get Started Today
+      </a>
+    </div>
+  </section>
+  <section class="home-services">
+    <div class="container">
+      <div class="home-services-heading">
+        <h2>How We Serve Your Family</h2>
+        <p>
+          Building Financial Freedom Through Smart, Simple, and Sustainable
+          Strategies
+        </p>
+      </div>
+      <div class="home-services-grid">
+        {homeServices.map((service) => (
+          <a class="home-service-card" href={`/services/${service.slug}`}>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              set:html={service.icon}
+            />
+            <h3>{service.shortTitle}</h3>
+            <p>{service.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="founder section" aria-labelledby="founder-title">
+    <div class="container founder-grid">
+      <figure class="founder-portrait">
+        <div class="founder-image">
+          <img
+            src="/images/dr-likita-aminu.png"
+            alt="Dr. Likita Aminu, founder of Legacy Beacon"
+            width="1149"
+            height="1369"
+            loading="lazy"
+          />
+        </div>
+        <figcaption>
+          <strong>Dr. Likita Aminu</strong>
+          <span>Founder, Legacy Beacon</span>
+        </figcaption>
+      </figure>
+      <div class="founder-copy">
+        <p class="founder-kicker">Founder Insight</p>
+        <h2 id="founder-title">
+          Building Financial Freedom with Vision &amp; Integrity
+        </h2>
+        <span class="founder-rule" aria-hidden="true"></span>
+        <p>
+          At Legacy Beacon, we believe financial literacy is the foundation for
+          generational freedom. Under the leadership of <strong
+            >Dr. Likita Aminu</strong
+          >, our mission is to empower families and entrepreneurs with the
+          clarity and tools needed to make confident financial decisions.
+        </p>
+        <p>
+          Through education, mentorship, and purpose-driven strategies, we guide
+          individuals toward true financial independence — helping them build
+          wealth with meaning and leave a lasting legacy.
+        </p>
+        <a class="btn founder-cta" href="/contact">
+          Get Started Today
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="interactive-experience" aria-labelledby="experience-title">
+    <div class="container experience-intro">
+      <h2 id="experience-title">Find Out If Legacy Beacon Is Right for You</h2>
+      <p>
+        Watch a short interactive video and answer a few guided questions to
+        receive a personalized financial pathway—built around your life, your
+        family, and your future. No pressure. Just clarity.
+      </p>
+      <a
+        class="experience-link"
+        href="https://umustsee.net/FMP7BS"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Start the Interactive Experience
+      </a>
+    </div>
+  </section>
+  {resources.length > 0 && (
+    <section class="section home-resources">
+      <div class="container">
+        <div class="resource-section-heading">
+          <div>
+            <p class="eyebrow">Family finance journal</p>
+            <h2>Clarity for the decisions that shape a legacy</h2>
+          </div>
+          <a href="/resources" class="resource-view-all">
+            Explore all six articles <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="home-resource-grid">
+          {resources.map((item) => (
+            <article class="editorial-card">
+              <a class="editorial-card-image" href={`/resources/${item.id}`}>
+                <img src={item.data.featuredImage} alt="" loading="lazy" />
+              </a>
+              <div class="editorial-card-body">
+                <p class="resource-meta">
+                  {item.data.publishDate.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+                <h3>
+                  <a href={`/resources/${item.id}`}>{item.data.title}</a>
+                </h3>
+                <p>{item.data.excerpt}</p>
+                <a class="editorial-read" href={`/resources/${item.id}`}>Read article <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+  <section class="section homepage-faq" aria-labelledby="homepage-faq-title">
+    <div class="container">
+      <div class="faq-compact-head">
+        <div>
+        <p class="eyebrow">Frequently asked questions</p>
+          <h2 id="homepage-faq-title">Clear answers before the conversation</h2>
+        </div>
+        <a class="faq-all-link" href="/faq">
+          View all questions <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <p class="faq-compact-lead">
+        Learn what to expect, how recommendations are approached, and how to
+        prepare for a useful first conversation.
+      </p>
+      <div class="faq-compact-grid">
+        <FAQList items={faqs.slice(0, 4)} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

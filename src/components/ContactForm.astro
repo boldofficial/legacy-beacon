@@ -1,0 +1,92 @@
+---
+import { site } from "../data/site";
+const endpoint = site.formEndpoint;
+---
+
+{!endpoint && (
+  <div class="notice" role="status">
+    <strong>Form delivery is awaiting final configuration.</strong>
+    <p>
+      Until the FormSubmit token is added, please email or call Legacy Beacon
+      using the details on this page.
+    </p>
+  </div>
+)}
+<form
+  class="contact-form"
+  action={endpoint || undefined}
+  method="POST"
+  data-configured={Boolean(endpoint)}
+>
+  <input type="hidden" name="_subject" value="New Website Enquiry" />
+  <input
+    type="hidden"
+    name="_next"
+    value={new URL("/thank-you", Astro.site ?? Astro.url.origin).toString()}
+  />
+  <input type="hidden" name="_captcha" value="false" />
+  <input
+    type="text"
+    name="_honey"
+    class="honeypot"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+  />
+  <div class="field-row">
+    <label>
+      Full name <span aria-hidden="true">*</span>
+      <input name="name" autocomplete="name" required />
+    </label>
+    <label>
+      Email address <span aria-hidden="true">*</span>
+      <input type="email" name="email" autocomplete="email" required />
+    </label>
+  </div>
+  <div class="field-row">
+    <label>
+      Phone number
+      <input type="tel" name="phone" autocomplete="tel" />
+    </label>
+    <label>
+      Service of interest
+      <select name="service">
+        <option value="">Please select</option>
+        <option>Term Life Insurance</option>
+        <option>Whole Life Insurance</option>
+        <option>Indexed Universal Life</option>
+        <option>Mortgage Protection</option>
+        <option>Fixed Index Annuities</option>
+        <option>Final Expense</option>
+        <option>Not sure yet</option>
+      </select>
+    </label>
+  </div>
+  <label>
+    Preferred contact method
+    <select name="preferred_contact">
+      <option>Email</option>
+      <option>Phone</option>
+      <option>Either</option>
+    </select>
+  </label>
+  <label>
+    Message <span aria-hidden="true">*</span>
+    <textarea
+      name="message"
+      rows="6"
+      required
+      placeholder="How can we help? Please do not include confidential financial, medical, or identity information."
+    ></textarea>
+  </label>
+  <label class="checkbox">
+    <input type="checkbox" name="consent" required />
+    <span>
+      I agree that Legacy Beacon may contact me about this enquiry.{" "}
+      <a href="/privacy-policy">Privacy policy</a>.
+    </span>
+  </label>
+  <button class="btn btn-primary" type="submit" disabled={!endpoint}>
+    Send enquiry
+  </button>
+</form>

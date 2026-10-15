@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Legacy Beacon to ask a question or start a conversation about protection and legacy planning."
+>
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "Contact" }]} />
+      <p class="eyebrow">Contact us</p>
+      <h1>Start with a conversation.</h1>
+      <p>
+        Tell us what you would like to understand. We will follow up using your
+        preferred contact method.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container contact-grid">
+      <div>
+        <p class="eyebrow">Get in touch</p>
+        <h2>We’re here to help you find clarity.</h2>
+        <dl class="contact-details">
+          <div>
+            <dt>Phone</dt>
+            <dd>
+              <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>Consultation</dt>
+            <dd>
+              <a href={site.bookingUrl}>Book a consultation</a>
+            </dd>
+          </div>
+        </dl>
+        <p class="fine-print">
+          Please do not send Social Security numbers, account numbers, medical
+          details, or other sensitive information through this form.
+        </p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>

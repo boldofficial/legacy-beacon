@@ -1,0 +1,122 @@
+media:
+  input: public/images
+  output: /images
+content:
+  - name: resources
+    label: Resources
+    type: collection
+    path: src/content/resources
+    filename: "{primary}.md"
+    view:
+      fields: [title, status, publishDate, category]
+      primary: title
+      sort: [publishDate, title]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - {
+          name: author,
+          label: Author,
+          type: string,
+          default: Legacy Beacon,
+          required: true,
+        }
+      - { name: publishDate, label: Publish date, type: date, required: true }
+      - { name: category, label: Category, type: string, required: true }
+      - { name: excerpt, label: Short summary, type: text, required: true }
+      - { name: featuredImage, label: Featured image, type: image }
+      - { name: seoTitle, label: SEO title, type: string }
+      - {
+          name: metaDescription,
+          label: Meta description,
+          type: text,
+          required: true,
+        }
+      - { name: socialImage, label: Social sharing image, type: image }
+      - name: status
+        label: Publication status
+        type: select
+        options:
+          values: [draft, published]
+        default: draft
+        required: true
+      - { name: body, label: Article content, type: rich-text, required: true }
+  - name: settings
+    label: Global settings
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - { name: name, label: Company name, type: string, required: true }
+      - {
+          name: legalName,
+          label: Legal company name,
+          type: string,
+          required: true,
+        }
+      - { name: email, label: Official email, type: string, required: true }
+      - {
+          name: phone,
+          label: Display phone number,
+          type: string,
+          required: true,
+        }
+      - {
+          name: phoneHref,
+          label: Phone number for links,
+          type: string,
+          required: true,
+        }
+      - {
+          name: bookingUrl,
+          label: Google Calendar booking URL,
+          type: string,
+          required: true,
+        }
+      - {
+          name: description,
+          label: Company description,
+          type: text,
+          required: true,
+        }
+      - name: social
+        label: Social links
+        type: object
+        fields:
+          - { name: facebook, label: Facebook URL, type: string }
+          - { name: instagram, label: Instagram URL, type: string }
+          - { name: linkedin, label: LinkedIn URL, type: string }
+          - { name: youtube, label: YouTube URL, type: string }
+  - name: services
+    label: Services
+    type: file
+    path: src/data/services.json
+    format: json
+    list: true
+    fields:
+      - {
+          name: slug,
+          label: URL slug,
+          type: string,
+          required: true,
+          readonly: true,
+        }
+      - { name: title, label: Page title, type: string, required: true }
+      - { name: shortTitle, label: Card title, type: string, required: true }
+      - { name: summary, label: Short description, type: text, required: true }
+      - { name: introduction, label: Introduction, type: text, required: true }
+      - { name: uses, label: Potential uses, type: string, list: true }
+      - {
+          name: considerations,
+          label: Things to consider,
+          type: string,
+          list: true,
+        }
+  - name: faqs
+    label: Frequently asked questions
+    type: file
+    path: src/data/faqs.json
+    format: json
+    list: true
+    fields:
+      - { name: question, label: Question, type: string, required: true }
+      - { name: answer, label: Answer, type: text, required: true }

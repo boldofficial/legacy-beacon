@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Disclosures"
+  description="Important disclosures for Legacy Beacon website content."
+  noindex={true}
+>
+  <section class="page-hero compact">
+    <div class="container narrow">
+      <Breadcrumbs items={[{ label: "Disclosures" }]} />
+      <h1>Disclosures</h1>
+    </div>
+  </section>
+  <article class="article-body container narrow">
+    <div class="legal-review">
+      Approved licensing and compliance language must be supplied by Legacy
+      Beacon before production publication.
+    </div>
+    <p>
+      Information presented on this website is general and educational. It
+      should not be interpreted as a promise or guarantee of product
+      performance, interest crediting, tax treatment, or financial outcome.
+    </p>
+    <p>
+      Insurance and annuity guarantees are subject to the terms of the
+      applicable contract and the claims-paying ability of the issuing insurer.
+      Policy loans and withdrawals may reduce cash value and death benefits and
+      may have tax consequences.
+    </p>
+    <p>
+      Consult qualified legal and tax professionals regarding your individual
+      circumstances.
+    </p>
+  </article>
+</BaseLayout>

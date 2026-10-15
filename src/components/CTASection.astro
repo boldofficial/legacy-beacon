@@ -1,0 +1,29 @@
+---
+import { site } from "../data/site";
+const {
+  title = "Ready to start the conversation?",
+  text = "Talk with Legacy Beacon about your family, priorities, and next steps.",
+} = Astro.props;
+---
+
+<section class="cta-section" aria-labelledby="consultation-cta-title">
+  <div class="container cta-panel">
+    <div class="cta-copy">
+      <p class="eyebrow">A clear next step</p>
+      <h2 id="consultation-cta-title">{title}</h2>
+      <p>{text}</p>
+    </div>
+
+    <div class="cta-action">
+      <p>No pressure—just a focused conversation about what matters to your family.</p>
+      <a
+        class="cta-button"
+        href={site.bookingUrl}
+        data-analytics="consultation_click"
+      >
+        <span>Book a consultation</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

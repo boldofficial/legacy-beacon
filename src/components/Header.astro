@@ -1,0 +1,63 @@
+---
+import { navigation, site } from "../data/site";
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+  <div class="container nav-wrap">
+    <a href="/" class="brand" aria-label="Legacy Beacon home">
+      <img
+        src="/images/Legacy%20Beacon.webp"
+        alt="Legacy Beacon"
+        width="300"
+        height="120"
+      />
+    </a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+    >
+      <span class="sr-only">Open navigation</span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="primary-nav" aria-label="Primary navigation">
+      <ul>
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={path === item.href ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        class="btn btn-primary nav-cta"
+        href={site.bookingUrl}
+        data-analytics="consultation_click"
+      >
+        Book a consultation
+      </a>
+    </nav>
+  </div>
+</header>
+<script is:inline>
+  document.querySelectorAll(".menu-toggle").forEach((button) =>
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!open));
+      document
+        .getElementById("primary-nav")
+        ?.classList.toggle("is-open", !open);
+    }),
+  );
+</script>

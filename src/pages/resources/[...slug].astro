@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { getCollection, render } from "astro:content";
+export async function getStaticPaths() {
+  const entries = await getCollection(
+    "resources",
+    ({ data }) => data.status === "published",
+  );
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  datePublished: entry.data.publishDate.toISOString(),
+  author: { "@type": "Organization", name: entry.data.author },
+  publisher: { "@type": "Organization", name: "Legacy Beacon LLC" },
+};
+---
+
+<BaseLayout
+  title={entry.data.seoTitle || entry.data.title}
+  description={entry.data.metaDescription}
+  image={entry.data.socialImage || entry.data.featuredImage}
+  schema={schema}
+>
+  <section
+    class="article-cover-hero"
+    style={`--article-image: url("${entry.data.featuredImage}")`}
+  >
+    <div class="container article-cover-copy">
+      <h1>{entry.data.title}</h1>
+      <p class="section-lead">{entry.data.excerpt}</p>
+    </div>
+  </section>
+  <div class="article-layout container">
+    <article class="article-body">
+      <Breadcrumbs
+        items={[
+          { label: "Resources", href: "/resources" },
+          { label: entry.data.title },
+        ]}
+      />
+      <p class="article-author">
+        {entry.data.publishDate.toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })} · By <strong>{entry.data.author}</strong>
+      </p>
+      <Content />
+    </article>
+    <aside class="article-aside" aria-label="Article information">
+      <p>Published</p>
+      <strong>{entry.data.publishDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</strong>
+      <a href="/resources">More from the journal <span aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</BaseLayout>

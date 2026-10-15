@@ -1,0 +1,15 @@
+---
+const { service } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true">
+    ✦
+  </div>
+  <h3>{service.shortTitle}</h3>
+  <p>{service.summary}</p>
+  <a href={`/services/${service.slug}`}>
+    Learn about {service.shortTitle}
+    <span aria-hidden="true"> →</span>
+  </a>
+</article>

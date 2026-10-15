@@ -1,0 +1,20 @@
+---
+const { items } = Astro.props;
+---
+
+<div class="faq-list">
+  {items.map((item: { question: string; answer: string }, index: number) => (
+    <details class="faq-item">
+      <summary>
+        <span class="faq-question">
+          <span class="faq-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+          <span>{item.question}</span>
+        </span>
+        <span class="faq-toggle" aria-hidden="true">+</span>
+      </summary>
+      <div class="faq-answer">
+        <p>{item.answer}</p>
+      </div>
+    </details>
+  ))}
+</div>

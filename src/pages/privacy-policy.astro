@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Legacy Beacon SMS messaging privacy policy, effective September 15, 2026."
+>
+  <header class="page-hero compact legal-page-hero">
+    <div class="container narrow">
+      <Breadcrumbs items={[{ label: "Privacy Policy" }]} />
+      <p class="legal-kicker">Messaging Privacy Policy</p>
+      <h1>Privacy Policy</h1>
+      <p class="legal-effective"><strong>Effective date</strong> September 15, 2026</p>
+    </div>
+  </header>
+
+  <main class="legal-page container narrow">
+    <p class="legal-intro">
+      Legacy Beacon respects your privacy and is committed to protecting your
+      personal information. This Privacy Policy explains how Legacy Beacon
+      collects and uses information about you when you opt in to receive SMS
+      messages from us.
+    </p>
+    <section aria-labelledby="privacy-information-collected">
+      <h2 id="privacy-information-collected">Information We Collect</h2>
+      <p>When you opt in to receive SMS messages, we collect:</p>
+      <ul>
+        <li>Your name</li><li>Your phone number</li><li>Your email address</li>
+        <li>Your basic contact information</li><li>Line of Authority</li>
+        <li>Other information that may be relevant</li>
+      </ul>
+    </section>
+    <section aria-labelledby="privacy-collection-methods">
+      <h2 id="privacy-collection-methods">How We Collect Your Information</h2>
+      <p>We may collect your information directly from you, such as when you complete a form or contact us, or automatically, such as when you interact with our website, or from a leads-generating company.</p>
+    </section>
+    <section aria-labelledby="privacy-information-use">
+      <h2 id="privacy-information-use">How We Use Your Information</h2>
+      <p>We use your information to:</p>
+      <ul>
+        <li>Send you the SMS messages you’ve opted in to receive</li>
+        <li>Provide updates, promotions, or other relevant content based on your preferences</li>
+        <li>Operate our business</li>
+        <li>Other uses of the information that may be relevant</li>
+      </ul>
+      <p>You can opt out of receiving SMS messages at any time by replying <strong>STOP</strong> to any message we send you. Review our <a href="/terms-and-conditions">Terms and Conditions</a> for additional information about the opt-out process.</p>
+    </section>
+    <section aria-labelledby="privacy-disclosure">
+      <h2 id="privacy-disclosure">To Whom We Disclose Your Information</h2>
+      <p>We may disclose your information to our affiliated companies; to third-party service providers, business advisors, or consultants who provide services to us; in connection with a merger, acquisition, reorganization, restructuring, financing transaction, or sale of assets; as required by law or administrative order; to assert claims or rights or to defend against claims; and other disclosures you make.</p>
+      <p class="legal-emphasis">We do not share your personal information, phone number, or SMS consent opt-in data with third parties or affiliates for marketing or promotional purposes.</p>
+    </section>
+    <section aria-labelledby="privacy-protection">
+      <h2 id="privacy-protection">Protection of Information</h2>
+      <p>We take steps to protect your information against unauthorized use or disclosure.</p>
+    </section>
+    <section aria-labelledby="privacy-updates">
+      <h2 id="privacy-updates">Updates</h2>
+      <p>We may periodically update this privacy policy. If we make material changes that have a substantive and adverse impact on your privacy, we will provide notice on this website prior to the change becoming effective. We encourage you to periodically review this page for the latest information about our privacy practices.</p>
+    </section>
+    <section class="legal-contact" aria-labelledby="privacy-contact">
+      <h2 id="privacy-contact">How to Contact Us</h2>
+      <p>Text <strong>HELP</strong> for support to <a href="tel:2163008114">216-300-8114</a>. You may also contact us at <a href="mailto:la@legacy-beacon.com">la@legacy-beacon.com</a>.</p>
+    </section>
+  </main>
+</BaseLayout>

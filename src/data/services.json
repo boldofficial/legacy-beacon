@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "term-life-insurance",
+    "title": "Term Life Insurance",
+    "shortTitle": "Term Life Protection",
+    "summary": "Affordable coverage designed to help protect your income, home, and family during the years that matter most.",
+    "introduction": "Term life insurance provides coverage for a defined period. It can help families prepare for the financial impact of an unexpected death during key earning, parenting, or debt-repayment years.",
+    "uses": [
+      "Income replacement for dependants",
+      "Mortgage and major debt protection",
+      "Education and family expense planning"
+    ],
+    "considerations": [
+      "Coverage ends when the selected term expires",
+      "Premiums and eligibility depend on individual circumstances",
+      "A review can help align the term and benefit with your needs"
+    ]
+  },
+  {
+    "slug": "whole-life-insurance",
+    "title": "Whole Life Insurance",
+    "shortTitle": "Whole Life Insurance",
+    "summary": "Lifetime protection with guaranteed features and cash value that may support future planning needs.",
+    "introduction": "Whole life insurance is permanent coverage designed to remain in force when required premiums are paid. Policies may build cash value and are often considered for long-term protection and legacy goals.",
+    "uses": [
+      "Lifelong death-benefit protection",
+      "Legacy and estate-planning conversations",
+      "Cash-value accumulation over time"
+    ],
+    "considerations": [
+      "Premiums are generally higher than comparable term coverage",
+      "Accessing cash value can reduce policy benefits",
+      "Policy guarantees depend on the issuing insurer and contract terms"
+    ]
+  },
+  {
+    "slug": "indexed-universal-life",
+    "title": "Indexed Universal Life",
+    "shortTitle": "Indexed Universal Life (IUL)",
+    "summary": "Flexible permanent life insurance with cash-value interest linked in part to a market index.",
+    "introduction": "Indexed universal life combines permanent life insurance with flexible features and a cash-value account whose credited interest is tied to an index subject to policy limits and terms.",
+    "uses": [
+      "Permanent protection with flexibility",
+      "Long-term cash-value planning",
+      "Legacy and supplemental-income discussions"
+    ],
+    "considerations": [
+      "Returns are not direct investments in an index",
+      "Caps, participation rates, costs, and floors affect outcomes",
+      "Policies require ongoing monitoring and appropriate funding"
+    ]
+  },
+  {
+    "slug": "mortgage-protection",
+    "title": "Mortgage Protection",
+    "shortTitle": "Mortgage Protection",
+    "summary": "Coverage intended to help loved ones manage housing costs if life takes an unexpected turn.",
+    "introduction": "Mortgage protection planning uses life insurance to help a household address mortgage payments or the outstanding balance after the death of an insured family member.",
+    "uses": [
+      "Helping family members remain in their home",
+      "Covering some or all of a mortgage obligation",
+      "Supporting broader income-protection planning"
+    ],
+    "considerations": [
+      "Coverage should reflect the mortgage and wider household budget",
+      "Beneficiaries decide how life insurance proceeds are used",
+      "Existing employer or personal coverage should be reviewed"
+    ]
+  },
+  {
+    "slug": "fixed-index-annuities",
+    "title": "Fixed Index Annuities",
+    "shortTitle": "Fixed Index Annuities",
+    "summary": "Insurance products designed for principal protection and potential interest linked to a market index.",
+    "introduction": "A fixed index annuity is an insurance contract that may earn interest based partly on an index while protecting contract value from direct market losses, subject to contract terms.",
+    "uses": [
+      "Tax-deferred long-term accumulation",
+      "Retirement-income planning",
+      "Reducing direct exposure to market downturns"
+    ],
+    "considerations": [
+      "Surrender periods and charges may apply",
+      "Index-linked interest is limited by contract terms",
+      "Guarantees rely on the claims-paying ability of the insurer"
+    ]
+  },
+  {
+    "slug": "final-expense",
+    "title": "Final Expense",
+    "shortTitle": "Final Expense Planning",
+    "summary": "Straightforward coverage intended to help loved ones manage funeral and other end-of-life costs.",
+    "introduction": "Final expense insurance is typically a smaller permanent life policy designed to provide funds for funeral costs, medical bills, and other final obligations.",
+    "uses": [
+      "Funeral and burial costs",
+      "Outstanding bills and final obligations",
+      "Leaving family members a dedicated benefit"
+    ],
+    "considerations": [
+      "Benefit amounts are usually lower than broader life policies",
+      "Cost varies with age, health, and coverage",
+      "Existing savings and insurance should be considered together"
+    ]
+  }
+]

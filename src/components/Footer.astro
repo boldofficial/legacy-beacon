@@ -1,0 +1,92 @@
+---
+import { navigation, site } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <h2>About us</h2>
+      <img
+        class="footer-logo"
+        src="/images/Legacy%20Beacon.webp"
+        alt="Legacy Beacon"
+        width="300"
+        height="120"
+      />
+      <p>
+        <strong>Legacy Beacon LLC</strong> is a family-focused financial
+        education and consulting firm helping individuals and entrepreneurs
+        build lasting wealth through smart strategies, guided mentorship, and
+        purpose-driven planning.
+      </p>
+    </div>
+    <div>
+      <h2>Explore</h2>
+      <ul>
+        {navigation.slice(1).map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>Get in touch</h2>
+      <ul>
+        <li>
+          <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <a href={site.bookingUrl}>Book a consultation</a>
+        </li>
+        {Object.entries(site.social)
+          .filter(([, url]) => url)
+          .map(([network, url]) => (
+            <li>
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                data-analytics="social_click"
+              >
+                {network[0].toUpperCase() + network.slice(1)}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </div>
+    <div>
+      <h2>Legal</h2>
+      <ul>
+        <li>
+          <a href="/privacy-policy">Privacy policy</a>
+        </li>
+        <li>
+          <a href="/terms-and-conditions">Terms &amp; conditions</a>
+        </li>
+        <li>
+          <a href="/disclosures">Disclosures</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>
+      © {year} {site.legalName}. All rights reserved.
+    </p>
+    <p>
+      Information on this website is educational and is not tax, legal, or
+      investment advice.
+    </p>
+    <p class="footer-credit">
+      Developed by
+      <a href="https://getboldideas.com/" target="_blank" rel="noopener noreferrer">
+        Bold Ideas
+      </a>
+    </p>
+  </div>
+</footer>

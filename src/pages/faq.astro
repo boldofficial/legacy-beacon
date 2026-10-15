@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQList from "../components/FAQList.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { faqs } from "../data/faqs";
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title="Frequently Asked Questions"
+  description="Answers to common questions about Legacy Beacon consultations, life insurance, and protection planning."
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={[{ label: "FAQ" }]} />
+      <p class="eyebrow">Frequently asked questions</p>
+      <h1>Clear answers are a strong first step.</h1>
+      <p>
+        These general answers can help you prepare for a more personal
+        conversation.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container narrow">
+      <FAQList items={faqs} />
+    </div>
+  </section>
+</BaseLayout>

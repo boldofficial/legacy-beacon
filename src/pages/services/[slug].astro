@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { services } from "../../data/services";
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+const { service } = Astro.props;
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: service.title,
+  description: service.summary,
+  provider: { "@type": "Organization", name: "Legacy Beacon LLC" },
+};
+---
+
+<BaseLayout title={service.title} description={service.summary} schema={schema}>
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs
+        items={[
+          { label: "Services", href: "/services" },
+          { label: service.title },
+        ]}
+      />
+      <p class="eyebrow">Legacy Beacon service</p>
+      <h1>{service.title}</h1>
+      <p>{service.summary}</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container content-grid">
+      <article>
+        <h2>What it is</h2>
+        <p class="section-lead">{service.introduction}</p>
+        <h2>Potential uses</h2>
+        <ul class="check-list">
+          {service.uses.map((item: string) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <h2>Things to consider</h2>
+        <ul class="check-list caution">
+          {service.considerations.map((item: string) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+      <aside class="sidebar-card">
+        <p class="eyebrow">A useful conversation</p>
+        <h2>Who may want to explore this?</h2>
+        <p>
+          People who want to understand how this option could fit their
+          responsibilities, existing coverage, budget, and long-term plans.
+        </p>
+        <a class="btn btn-primary" href="/contact">
+          Ask a question
+        </a>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
