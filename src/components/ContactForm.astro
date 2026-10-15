@@ -3,21 +3,21 @@ import { site } from "../data/site";
 const endpoint = site.formEndpoint;
 ---
 
-{!endpoint && (
-  <div class="notice" role="status">
-    <strong>Form delivery is awaiting final configuration.</strong>
-    <p>
-      Until the FormSubmit token is added, please email or call Legacy Beacon
-      using the details on this page.
-    </p>
-  </div>
-)}
-<form
-  class="contact-form"
-  action={endpoint || undefined}
-  method="POST"
-  data-configured={Boolean(endpoint)}
->
+<div class="contact-form-shell">
+  {!endpoint && (
+    <div class="notice" role="status">
+      <strong>Online delivery is awaiting final configuration.</strong>
+      <p>
+        For now, please email or call Legacy Beacon using the details on this page.
+      </p>
+    </div>
+  )}
+  <form
+    class="contact-form"
+    action={endpoint || undefined}
+    method="POST"
+    data-configured={Boolean(endpoint)}
+  >
   <input type="hidden" name="_subject" value="New Website Enquiry" />
   <input
     type="hidden"
@@ -86,7 +86,11 @@ const endpoint = site.formEndpoint;
       <a href="/privacy-policy">Privacy policy</a>.
     </span>
   </label>
-  <button class="btn btn-primary" type="submit" disabled={!endpoint}>
-    Send enquiry
-  </button>
-</form>
+    <div class="contact-form-actions">
+      <button class="btn btn-primary" type="submit" disabled={!endpoint}>
+        Send enquiry
+      </button>
+      <p>We’ll use your details only to respond to this enquiry.</p>
+    </div>
+  </form>
+</div>

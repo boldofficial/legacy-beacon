@@ -19,20 +19,41 @@ const schema = {
   description="Answers to common questions about Legacy Beacon consultations, life insurance, and protection planning."
   schema={schema}
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="editorial-page-hero faq-page-hero">
+    <div class="container editorial-hero-grid">
+      <div>
       <Breadcrumbs items={[{ label: "FAQ" }]} />
-      <p class="eyebrow">Frequently asked questions</p>
       <h1>Clear answers are a strong first step.</h1>
+      </div>
       <p>
         These general answers can help you prepare for a more personal
         conversation.
       </p>
     </div>
   </section>
-  <section class="section">
-    <div class="container narrow">
-      <FAQList items={faqs} />
+  <section class="editorial-page-section faq-page" aria-label="Frequently asked questions">
+    <div class="container faq-page-grid">
+      <aside class="faq-page-aside">
+        <p class="page-section-label">Before we talk</p>
+        <h2>Start with what matters to your family.</h2>
+        <p>
+          Every family’s situation is different. These answers explain the
+          general approach; a consultation gives you space to discuss your own
+          priorities and questions.
+        </p>
+        <div class="faq-page-note">
+          <strong>Have a different question?</strong>
+          <span>Send us a note and we’ll help you find the right starting point.</span>
+          <a href="/contact">Contact Legacy Beacon <span aria-hidden="true">→</span></a>
+        </div>
+      </aside>
+      <div class="faq-page-content">
+        <div class="faq-page-heading">
+          <p>{faqs.length} common questions</p>
+          <span>Open any question to read the answer.</span>
+        </div>
+        <FAQList items={faqs} variant="page" />
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-15",
+  "framework": "Astro",
+  "fonts": ["Poppins", "Playfair Display", "DM Sans"],
+  "palette": "Legacy Beacon navy, gold, warm paper",
+  "motion": "cut",
+  "spacing": "fluid with shared container"
+}

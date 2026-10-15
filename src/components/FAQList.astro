@@ -1,8 +1,8 @@
 ---
-const { items } = Astro.props;
+const { items, variant = "default" } = Astro.props;
 ---
 
-<div class="faq-list">
+<div class:list={["faq-list", { "faq-page-list": variant === "page" }]}>
   {items.map((item: { question: string; answer: string }, index: number) => (
     <details class="faq-item">
       <summary>

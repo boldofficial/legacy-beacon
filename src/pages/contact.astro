@@ -9,25 +9,30 @@ import { site } from "../data/site";
   title="Contact"
   description="Contact Legacy Beacon to ask a question or start a conversation about protection and legacy planning."
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="editorial-page-hero contact-page-hero">
+    <div class="container editorial-hero-grid">
+      <div>
       <Breadcrumbs items={[{ label: "Contact" }]} />
-      <p class="eyebrow">Contact us</p>
       <h1>Start with a conversation.</h1>
+      </div>
       <p>
         Tell us what you would like to understand. We will follow up using your
         preferred contact method.
       </p>
     </div>
   </section>
-  <section class="section">
-    <div class="container contact-grid">
-      <div>
-        <p class="eyebrow">Get in touch</p>
-        <h2>We’re here to help you find clarity.</h2>
+  <section class="editorial-page-section contact-page">
+    <div class="container contact-page-grid">
+      <aside class="contact-page-aside">
+        <p class="page-section-label">Direct contact</p>
+        <h2>Choose the way that feels easiest.</h2>
+        <p class="contact-page-intro">
+          Ask a question, share what you are exploring, or arrange a focused
+          consultation about your family’s priorities.
+        </p>
         <dl class="contact-details">
           <div>
-            <dt>Phone</dt>
+            <dt>Call</dt>
             <dd>
               <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
             </dd>
@@ -45,12 +50,20 @@ import { site } from "../data/site";
             </dd>
           </div>
         </dl>
-        <p class="fine-print">
+        <p class="contact-privacy-note">
+          <strong>Your privacy matters.</strong>
           Please do not send Social Security numbers, account numbers, medical
           details, or other sensitive information through this form.
         </p>
+      </aside>
+      <div class="contact-form-column">
+        <div class="contact-form-heading">
+          <p class="page-section-label">Send an enquiry</p>
+          <h2>How can we help?</h2>
+          <p>Required fields are marked with an asterisk.</p>
+        </div>
+        <ContactForm />
       </div>
-      <ContactForm />
     </div>
   </section>
 </BaseLayout>
