@@ -1,6 +1,7 @@
 ---
 import { navigation, site } from "../data/site";
 const path = Astro.url.pathname;
+const bookingIsExternal = site.bookingUrl.startsWith("http");
 ---
 
 <header class="site-header">
@@ -43,6 +44,8 @@ const path = Astro.url.pathname;
       <a
         class="btn btn-primary nav-cta"
         href={site.bookingUrl}
+        target={bookingIsExternal ? "_blank" : undefined}
+        rel={bookingIsExternal ? "noopener noreferrer" : undefined}
         data-analytics="consultation_click"
       >
         Book a consultation

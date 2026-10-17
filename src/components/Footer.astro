@@ -1,6 +1,8 @@
 ---
 import { navigation, site } from "../data/site";
+import SocialLinks from "./SocialLinks.astro";
 const year = new Date().getFullYear();
+const bookingIsExternal = site.bookingUrl.startsWith("http");
 ---
 
 <footer class="site-footer">
@@ -41,23 +43,14 @@ const year = new Date().getFullYear();
           <a href={`mailto:${site.email}`}>{site.email}</a>
         </li>
         <li>
-          <a href={site.bookingUrl}>Book a consultation</a>
+          <a
+            href={site.bookingUrl}
+            target={bookingIsExternal ? "_blank" : undefined}
+            rel={bookingIsExternal ? "noopener noreferrer" : undefined}
+          >Book a consultation</a>
         </li>
-        {Object.entries(site.social)
-          .filter(([, url]) => url)
-          .map(([network, url]) => (
-            <li>
-              <a
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                data-analytics="social_click"
-              >
-                {network[0].toUpperCase() + network.slice(1)}
-              </a>
-            </li>
-          ))}
       </ul>
+      <SocialLinks class="footer-social-links" />
     </div>
     <div>
       <h2>Legal</h2>

@@ -4,6 +4,7 @@ const {
   title = "Ready to start the conversation?",
   text = "Talk with Legacy Beacon about your family, priorities, and next steps.",
 } = Astro.props;
+const bookingIsExternal = site.bookingUrl.startsWith("http");
 ---
 
 <section class="cta-section" aria-labelledby="consultation-cta-title">
@@ -19,6 +20,8 @@ const {
       <a
         class="cta-button"
         href={site.bookingUrl}
+        target={bookingIsExternal ? "_blank" : undefined}
+        rel={bookingIsExternal ? "noopener noreferrer" : undefined}
         data-analytics="consultation_click"
       >
         <span>Book a consultation</span>

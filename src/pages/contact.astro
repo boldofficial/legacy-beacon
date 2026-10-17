@@ -2,7 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ContactForm from "../components/ContactForm.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import { site } from "../data/site";
+const bookingIsExternal = site.bookingUrl.startsWith("http");
 ---
 
 <BaseLayout
@@ -46,10 +48,18 @@ import { site } from "../data/site";
           <div>
             <dt>Consultation</dt>
             <dd>
-              <a href={site.bookingUrl}>Book a consultation</a>
+              <a
+                href={site.bookingUrl}
+                target={bookingIsExternal ? "_blank" : undefined}
+                rel={bookingIsExternal ? "noopener noreferrer" : undefined}
+              >Book a consultation</a>
             </dd>
           </div>
         </dl>
+        <div class="contact-social">
+          <p class="page-section-label">Follow Legacy Beacon</p>
+          <SocialLinks />
+        </div>
         <p class="contact-privacy-note">
           <strong>Your privacy matters.</strong>
           Please do not send Social Security numbers, account numbers, medical

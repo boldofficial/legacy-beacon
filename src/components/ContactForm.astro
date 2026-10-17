@@ -19,6 +19,12 @@ const endpoint = site.formEndpoint;
     data-configured={Boolean(endpoint)}
   >
     <input type="hidden" name="_subject" value="New Website Enquiry" />
+    <input type="hidden" name="_template" value="table" />
+    <input
+      type="hidden"
+      name="_url"
+      value={new URL("/contact", Astro.site ?? Astro.url.origin).toString()}
+    />
     <input
       type="hidden"
       name="_next"

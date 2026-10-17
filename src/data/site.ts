@@ -3,7 +3,9 @@ import content from "./site.json";
 export const site = {
   ...content,
   bookingUrl: import.meta.env.PUBLIC_BOOKING_URL || content.bookingUrl,
-  formEndpoint: import.meta.env.PUBLIC_FORMSUBMIT_ENDPOINT || "",
+  formEndpoint:
+    import.meta.env.PUBLIC_FORMSUBMIT_ENDPOINT ||
+    `https://formsubmit.co/${content.email}`,
 };
 export const navigation = [
   { label: "Home", href: "/" },
