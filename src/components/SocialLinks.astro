@@ -17,6 +17,7 @@ const labels: Record<string, string> = {
       {socialLinks.map(([network, url]) => (
         <li>
           <a
+            class={`social-${network}`}
             href={url}
             target="_blank"
             rel="noopener noreferrer"

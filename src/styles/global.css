@@ -2470,6 +2470,18 @@ p {
   fill: currentColor;
   stroke: none;
 }
+.social-links .social-facebook svg {
+  color: #1877f2;
+}
+.social-links .social-instagram svg {
+  color: #e4405f;
+}
+.social-links .social-linkedin svg {
+  color: #0a66c2;
+}
+.social-links .social-youtube svg {
+  color: #ff0000;
+}
 .contact-privacy-note {
   margin: 0;
   padding: var(--space-md);
@@ -2782,6 +2794,9 @@ p {
   color: var(--color-navy-deep);
   background: var(--gold);
   border-color: var(--gold);
+}
+.site-footer .footer-social-links a:hover svg {
+  color: currentColor;
 }
 .footer-bottom {
   display: flex;
