@@ -8,7 +8,9 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://www.legacy-beacon.com",
+  site:
+    process.env.PUBLIC_SITE_URL ??
+    "https://legacy-beacon.boldideas-official.workers.dev",
   vite: {
     plugins: [tailwindcss()],
   },
