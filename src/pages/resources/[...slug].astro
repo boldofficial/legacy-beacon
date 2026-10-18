@@ -14,13 +14,28 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+const canonicalUrl = new URL(`/resources/${entry.id}`, Astro.site);
+const articleImage = new URL(
+  entry.data.socialImage || entry.data.featuredImage || "/images/legacy-beacon-og.png",
+  Astro.site,
+).toString();
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
+  "@id": `${canonicalUrl.toString()}#article`,
+  mainEntityOfPage: { "@id": `${canonicalUrl.toString()}#webpage` },
   headline: entry.data.title,
+  description: entry.data.metaDescription,
+  image: [articleImage],
   datePublished: entry.data.publishDate.toISOString(),
-  author: { "@type": "Organization", name: entry.data.author },
-  publisher: { "@type": "Organization", name: "Legacy Beacon LLC" },
+  dateModified: entry.data.publishDate.toISOString(),
+  articleSection: entry.data.category,
+  author: {
+    "@type": "Person",
+    name: entry.data.author,
+    url: new URL("/about", Astro.site).toString(),
+  },
+  publisher: { "@id": `${new URL("/", Astro.site).toString()}#organization` },
+  inLanguage: "en-US",
 };
 ---
 
@@ -28,6 +43,15 @@ const schema = {
   title={entry.data.seoTitle || entry.data.title}
   description={entry.data.metaDescription}
   image={entry.data.socialImage || entry.data.featuredImage}
+  imageAlt={entry.data.title}
+  ogType="article"
+  publishedTime={entry.data.publishDate.toISOString()}
+  modifiedTime={entry.data.publishDate.toISOString()}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Resources", url: "/resources" },
+    { name: entry.data.title, url: `/resources/${entry.id}` },
+  ]}
   schema={schema}
 >
   <section

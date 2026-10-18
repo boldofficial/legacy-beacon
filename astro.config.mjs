@@ -10,7 +10,7 @@ import icon from "astro-icon";
 export default defineConfig({
   site:
     process.env.PUBLIC_SITE_URL ??
-    "https://legacy-beacon.boldideas-official.workers.dev",
+    "https://www.legacy-beacon.com",
   vite: {
     plugins: [tailwindcss()],
   },

@@ -9,24 +9,111 @@ const {
   title,
   description = site.description,
   image = "/images/legacy-beacon-og.png",
+  imageAlt = "Legacy Beacon — protect what matters and build a lasting legacy",
+  imageWidth,
+  imageHeight,
+  ogType = "website",
+  publishedTime,
+  modifiedTime,
   noindex = false,
   schema,
+  breadcrumbs,
 } = Astro.props;
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const baseUrl = Astro.site ?? Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, baseUrl);
+const homeUrl = new URL("/", baseUrl).toString();
+const imageUrl = new URL(image, baseUrl).toString();
 const analyticsId = import.meta.env.PUBLIC_GA_ID;
 const organizationSchema = {
-  "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${homeUrl}#organization`,
   name: site.legalName,
-  url: Astro.site?.toString(),
+  alternateName: site.name,
+  url: homeUrl,
+  description: site.description,
   email: site.email,
-  telephone: site.phoneHref,
-  logo: new URL(
-    "/images/Legacy%20Beacon.webp",
-    Astro.site ?? Astro.url.origin,
-  ).toString(),
+  telephone: site.phone,
+  logo: {
+    "@type": "ImageObject",
+    url: new URL("/images/Legacy%20Beacon.webp", baseUrl).toString(),
+  },
+  image: imageUrl,
+  founder: {
+    "@type": "Person",
+    name: "Dr. Likita Aminu",
+    jobTitle: "Founder",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    email: site.email,
+    telephone: site.phone,
+    availableLanguage: "English",
+  },
+  sameAs: Object.values(site.social).filter(Boolean),
 };
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${homeUrl}#website`,
+  url: homeUrl,
+  name: site.name,
+  description: site.description,
+  publisher: { "@id": `${homeUrl}#organization` },
+  inLanguage: "en-US",
+};
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${canonical.toString()}#webpage`,
+  url: canonical.toString(),
+  name: pageTitle,
+  description,
+  isPartOf: { "@id": `${homeUrl}#website` },
+  about: { "@id": `${homeUrl}#organization` },
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    url: imageUrl,
+  },
+  inLanguage: "en-US",
+};
+const breadcrumbItems = Astro.url.pathname === "/"
+  ? []
+  : breadcrumbs || [
+      { name: "Home", url: homeUrl },
+      { name: title, url: canonical.toString() },
+    ];
+const breadcrumbSchema = breadcrumbItems.length > 0
+  ? {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical.toString()}#breadcrumb`,
+      itemListElement: breadcrumbItems.map(
+        (item: { name: string; url?: string }, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url ? new URL(item.url, baseUrl).toString() : undefined,
+        }),
+      ),
+    }
+  : null;
+const extraSchema = schema
+  ? (Array.isArray(schema) ? schema : [schema]).map(({ "@context": _, ...node }) => node)
+  : [];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    organizationSchema,
+    websiteSchema,
+    webPageSchema,
+    breadcrumbSchema,
+    ...extraSchema,
+  ].filter(Boolean),
+};
+const inferredImageType = image.toLowerCase().endsWith(".webp")
+  ? "image/webp"
+  : image.toLowerCase().endsWith(".jpg") || image.toLowerCase().endsWith(".jpeg")
+    ? "image/jpeg"
+    : "image/png";
 ---
 
 <!doctype html>
@@ -38,28 +125,41 @@ const organizationSchema = {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta property="og:type" content="website" />
+    <meta
+      name="robots"
+      content={noindex
+        ? "noindex, nofollow"
+        : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
+    />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta
       property="og:image"
-      content={new URL(image, Astro.site ?? Astro.url.origin)}
+      content={imageUrl}
     />
-    <meta
-      property="og:image:alt"
-      content={`${site.name} emblem`}
-    />
+    <meta property="og:image:secure_url" content={imageUrl} />
+    <meta property="og:image:type" content={inferredImageType} />
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+    <meta property="og:image:alt" content={imageAlt} />
+    {ogType === "article" && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {ogType === "article" && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime} />
+    )}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta
       name="twitter:image"
-      content={new URL(image, Astro.site ?? Astro.url.origin)}
+      content={imageUrl}
     />
-    <meta name="twitter:image:alt" content={`${site.name} emblem`} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <meta name="theme-color" content="#082f49" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
@@ -71,7 +171,7 @@ const organizationSchema = {
     />
     <script
       type="application/ld+json"
-      set:html={JSON.stringify(schema || organizationSchema)}
+      set:html={JSON.stringify(structuredData)}
     />
     {analyticsId && <script is:inline define:vars={{ analyticsId }}>
       window.dataLayer = window.dataLayer || [];

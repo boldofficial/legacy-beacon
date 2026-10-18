@@ -10,15 +10,26 @@ export function getStaticPaths() {
 }
 const { service } = Astro.props;
 const schema = {
-  "@context": "https://schema.org",
   "@type": "Service",
+  "@id": `${new URL(`/services/${service.slug}`, Astro.site).toString()}#service`,
   name: service.title,
   description: service.summary,
-  provider: { "@type": "Organization", name: "Legacy Beacon LLC" },
+  url: new URL(`/services/${service.slug}`, Astro.site).toString(),
+  provider: { "@id": `${new URL("/", Astro.site).toString()}#organization` },
+  areaServed: { "@type": "Country", name: "United States" },
 };
 ---
 
-<BaseLayout title={service.title} description={service.summary} schema={schema}>
+<BaseLayout
+  title={service.title}
+  description={service.summary}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: service.title, url: `/services/${service.slug}` },
+  ]}
+  schema={schema}
+>
   <section class="page-hero">
     <div class="container">
       <Breadcrumbs
